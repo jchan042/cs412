@@ -128,7 +128,7 @@ STATICFILES_DIRS = [
 
 #declarations to reference static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = '/jchan042/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
@@ -140,5 +140,6 @@ import socket
 CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
+    print("Inside gethostname")
     STATIC_URL = '/jchan042/static/'
     MEDIA_URL = '/jchan042/media/'
