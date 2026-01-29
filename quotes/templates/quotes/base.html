@@ -1,0 +1,36 @@
+<!-- 
+File: base.html
+Author: Jocelyn Chan (jchan042@bu.edu) 1/27/2026
+Description: A base template that other pages can build off upon
+ -->
+
+{% load static %}
+<html>
+    <!-- Head -->
+    <head>
+        <title> Quotes by RM </title> 
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+ 
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'quote' %}">Quote of the Day</a></li>
+            <li><a href="{% url 'show_all' %}">Show All</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+ 
+ 
+    </nav>
+    <hr>
+
+    <!-- Header -->
+    <header> RM's Quote of the Day </header>
+    <hr>
+        
+    {% block content %}
+    {% endblock %}
+    
+   </body>
+</html>

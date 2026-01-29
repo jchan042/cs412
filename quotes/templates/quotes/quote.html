@@ -1,0 +1,24 @@
+<!-- 
+File: quote.html
+Author: Jocelyn Chan (jchan042@bu.edu) 1/27/2026
+Description: The template for the quote page that generates a random quote and image
+ -->
+
+<!-- Extends from base.html -->
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+<!-- Quote page content begins-->
+<div>
+    <!-- Import context variables -->
+    <p> {{random_quote}} </p>
+    <br>
+    <img src="{{random_image}}" alt="RM Photo" width="400"> <!-- Adjusting image dimensions-->
+
+</div>
+ 
+ 
+{% endblock %}
+ 
+ 

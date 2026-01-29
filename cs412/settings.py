@@ -26,11 +26,12 @@ SECRET_KEY = 'django-insecure-!-hz!njmkjr=p9^*2k#!6*1%kv(18uh4h^$i84@yc8f$$8z_g9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cs-webapps.bu.edu']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
+# everytime new app add to list
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'hw', # NEW
+    'quotes',
 ]
 
 MIDDLEWARE = [
@@ -54,14 +57,16 @@ ROOT_URLCONF = 'cs412.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            'string_if_invalid' : 'WARNING: {{%s}} not a valid context variable.',
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -131,4 +136,9 @@ if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     STATIC_URL = '/jchan042/static/'
     MEDIA_URL = '/jchan042/media/'
 
-
+#declarations to reference static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]

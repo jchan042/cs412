@@ -1,0 +1,26 @@
+<!-- 
+File: show_all.html
+Author: Jocelyn Chan (jchan042@bu.edu) 1/27/2026
+Description: The template for the show all page that displays all quotes and images
+ -->
+
+<!-- Extends from base.html -->
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+<!-- Display all quotes -->
+<h1> All quotes by RM </h1>
+<!-- Loop through the list -->
+{% for quote in all_quotes %}
+    <p> {{ quote }} </p>
+{% endfor %}
+
+<!-- Display all images -->
+<h1> All images of RM </h1>
+<!-- Loop through the list -->
+{% for image in all_images %}
+    <img src="{{ image }}" alt="Photo of RM" width="400"> <br>
+{% endfor %}
+
+{% endblock %}
