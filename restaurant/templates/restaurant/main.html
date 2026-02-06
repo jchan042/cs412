@@ -1,0 +1,54 @@
+<!-- 
+File: main.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/3/2026
+Description: The main web page for the restaurant
+-->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+
+<div>
+    <h1>Welcome to Yume Ga Arukara!</h1>
+    <img src="https://bomag.o0bc.com/wp-content/uploads/sites/2/2024/02/yume-ga-arukara-seaport-rachel-leah-blumenthal-12-900px.jpg"
+     alt="Image of Yume">
+
+     <!--Information on the restaurant-->
+
+     <!--Locations-->
+     <h3>Locations:</h3>
+     <div class="locations">
+        <ul>
+            <li><b>Porter Square: </b>1815 Massachusetts Ave | Cambridge, MA 02140</li>
+        </ul>
+     </div>
+     <br>
+     <div class="locations">
+        <ul>
+            <li><b>Seaport: </b>70 Pier 4 Blvd, Suite 260 | Boston, MA 02110</li>
+        </ul>
+     </div>
+
+    <!--Hours of Operation-->
+    <h3>Hours of Operation:</h3>
+    
+    <!-- Location 1 -->
+    <h4>Porter Square:</h4>
+    <ul class="hours">
+        <li>Monday - Sunday</li>
+        <li>11AM to 8:45PM</li>
+    </ul>
+
+    <br>
+    <!-- Location 2 -->
+    <h4>Seaport:</h4>
+    <ul class="hours">
+        <li>Sunday - Thursday</li>
+        <li>11AM to 9PM</li>
+        <br>
+        <li>Friday - Saturday</li>
+        <li>11AM to 11PM</li>
+    </ul>
+</div>
+
+{% endblock %}

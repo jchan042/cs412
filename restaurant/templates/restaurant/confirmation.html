@@ -1,0 +1,58 @@
+<!-- 
+File: confirmation.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/3/2026
+Description: The confirmation page to display after 
+ordering as to confirm the submission of an order
+-->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+
+<div>
+    <h1>Order placed!</h1>
+
+    <!-- Use context vars to acknowledge user-->
+    <p>
+        Hi {{name}}. Thank you for choosing Yume Ga Arukara. 
+    </p>
+
+    <br>
+    <!-- Time when food is ready -->
+    <h4>
+        Your order will be ready at {{time}}
+    </h4>
+
+    <!-- Total price for the user's order -->
+    <p>
+        Your order total is: ${{total}}
+    </p>
+
+    <br>
+    <!-- List out what they ordered -->
+    <p>
+        <!-- Iterate everything they ordered -->
+        <b>Confirmation:</b>
+        <ol class="confirm-food">
+            {% for food in ordered_items %}
+            <li> {{ food }} </li>
+            {% endfor %}
+        </ol>
+    </p>
+
+    <br>
+    <!-- List out special instructions -->
+     <p><b>Special Instructions:</b> {{ instructions }}</p>
+
+     <br>
+    <!-- Customer Information -->
+    <h4>
+        Customer Information:
+    </h4>
+    <p>Name: {{name}}</p>
+    <p>Phone: {{phone}}</p>
+    <p>Email: {{email}}</p>
+
+</div>
+
+{% endblock %}

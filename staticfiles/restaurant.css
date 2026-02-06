@@ -1,0 +1,143 @@
+/*
+File: restaurant.css
+Author: Jocelyn Chan (jchan042@bu.edu) 2/4/2026
+Description: stylesheet for the restaurant app
+*/
+
+body {
+    background-color: #EDE8D0;
+    color: rgb(63, 60, 60);
+    font-family: verdana;
+}
+
+header {
+    font-size: 50px;
+    text-align: center;
+}
+
+/* color of the link before click */
+a:link {
+    color: rgb(45, 0, 128)
+}
+
+/* color of the link when hover */
+a:hover {
+    color: purple
+}
+
+/* color of the link after click */
+a:visited {
+    color: purple
+}
+
+img {
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+/* navigation bar */
+nav {
+    color: rgb(63, 60, 60);
+}
+
+/* formatting the navigation bar to get rid of bullet points*/
+nav ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline;
+    padding: 300px;
+}
+
+h1, h2, h3{
+    text-align: center;
+}
+
+/* Separate to make the locations for hours of operation have smaller padding*/
+h4{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    text-align: center;
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+/* Locations on main page */
+.locations {
+    list-style: none;
+    display: inline;
+    text-align: center;
+    margin: 5px;
+}
+
+.locations ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Hours of Operation */
+.hours{
+    list-style: none;
+    display: inline;
+    text-align: center;
+}
+
+.hours ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Food options */
+.food{
+    text-align: center;
+    margin-top: 25px;
+}
+
+/* Checkbox styling*/
+.food ul{
+    text-align: left;
+    margin-left: 24px;
+    margin-top: 6px;
+}
+
+/* Extra options */
+.extras{
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6px;
+    width: fit-content; /* Centers the bullets */
+}
+
+.extras div{
+    margin-left: 50px; /* Extra indent */
+}
+
+/* Customer information + special instructions */
+.info{
+    text-align: center;
+}
+
+/* Submit button */
+input[type="submit"] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgb(164, 34, 34)
+}
+
+/* Food items on the confirmation page */
+.confirm-food{
+    text-align: center;
+    list-style-position: inside; /* put the bullets next to the text instead of all the way to the left*/
+    padding-left: 0;
+}

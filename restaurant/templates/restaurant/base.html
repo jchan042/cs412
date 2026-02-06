@@ -1,0 +1,33 @@
+<!-- 
+File: base.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/3/2026
+Description: A base template that other pages can build off upon
+ -->
+
+ {% load static%}
+ <html>
+    <!--Head-->
+    <head>
+        <title>Online Order | Yume Ga Arukara</title>
+        <link rel="stylesheet" href="{% static 'restaurant.css' %}">
+    </head>
+
+    <!--Body-->
+    <body>
+        <!--Header-->
+        <header>Yume Ga Arukara</header>
+        <hr>
+
+        <!--Navigation-->
+        <nav>
+            <ul>
+                <li><a href="{% url 'main' %}">Main Page</a></li>
+                <li><a href="{% url 'order' %}">Online Order Page</a></li>
+            </ul>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+ </html>
