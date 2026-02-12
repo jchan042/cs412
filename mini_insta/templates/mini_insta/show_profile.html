@@ -1,0 +1,59 @@
+<!-- 
+File: show_profile.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/12/2026
+Description: The page to display one single profile
+ -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<div class="profile-container">
+    <!-- Profile Header Section -->
+    <div class="profile-header">
+        <!-- Profile Picture -->
+        <div class="profile-image">
+            <img src="{{ profile.profile_image_url }}" alt="{{ profile.username }}'s profile picture">
+        </div>
+
+        <!-- Profile Information -->
+        <div class="profile-info">
+            <!-- Username -->
+            <h1 class="profile-username">{{ profile.username }}</h1>
+
+            <!-- Followers/Following -->
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number">TBD</div>
+                    <div>posts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">TBD</div>
+                    <div>followers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">TBD</div>
+                    <div>following</div>
+                </div>
+            </div>
+
+            <!-- Name and Bio -->
+            <div class="profile-details">
+                <div class="profile-display-name">{{ profile.display_name }}</div>
+                <div class="profile-bio">{{ profile.bio_text }}</div>
+                <div class="profile-meta">Joined {{ profile.join_date|date:"F d, Y" }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Posts -->
+    <div class="posts-section">
+        <div class="posts-header">POSTS</div>
+        <div class="no-posts">
+            <p>📷</p>
+            <p>No posts yet</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

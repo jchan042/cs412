@@ -6,7 +6,10 @@ Description: A base template that other pages can build off upon
 
 {% load static %}
 <html>
-    <head>Mini Instagram</head>
+    <head>
+        <title>Mini Instagram</title>
+        <link rel="stylesheet" href="{% static 'mini_insta.css' %}">
+    </head>
 
     <body>
         <!--Header-->

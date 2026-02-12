@@ -1,0 +1,30 @@
+/*
+File: mini_insta.css
+Author: Jocelyn Chan (jchan042@bu.edu) 2/12/2026
+Description: external stylesheet for the mini_insta app
+*/
+
+
+/* Individual profile section */
+
+/* Profile attributes */
+.profile-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.stat-item {
+    display: flex;
+    gap: 5px; /* makes them side by side */
+}
+
+.stat-number {
+    font-weight: 600;
+}
+
+/* .profile-image {
+    width: 200px;
+    height: 200px;
+} */

@@ -19,7 +19,8 @@ Description: The page to display all of the instagram profiles
             <div class="profile-details">
                 <h3><strong>@{{pfp.username}}: {{pfp.display_name}}</strong></h3>
             </div>
-            <img src="{{pfp.profile_image_url}}" alt="{{profile_image_url}}" width="400" height="400">
+            <!--Display the image as a link to the correct profile-->
+            <a href="{% url 'profile' pfp.pk %}"><img src="{{pfp.profile_image_url}}" alt="{{profile_image_url}}" width="400" height="400"></a>
         </div>
         {% endfor %}
         <!--End for loop-->
