@@ -1,0 +1,31 @@
+<!-- 
+File: show_all_profiles.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/12/2026
+Description: The page to display all of the instagram profiles 
+ -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h1>All Profiles</h1>
+<main>
+    <div class="grid">
+
+        <!--Loop to display all of the images-->
+        {% for pfp in profiles %}
+        <div class="profile-item">
+            <!--Add link later-->
+            <div class="profile-details">
+                <h3><strong>@{{pfp.username}}: {{pfp.display_name}}</strong></h3>
+            </div>
+            <img src="{{pfp.profile_image_url}}" alt="{{profile_image_url}}" width="400" height="400">
+        </div>
+        {% endfor %}
+        <!--End for loop-->
+
+
+    </div>
+</main>
+
+{% endblock %}

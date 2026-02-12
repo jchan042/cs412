@@ -3,8 +3,9 @@
 # Description: Define which views to display for which URLs
 
 from django.urls import path
-from .views import ShowAllProfilesView  # Fixed import
+from .views import ProfileListView  # hardcoding importing all the views 
 
 urlpatterns = [
-    path('show_all', ShowAllProfilesView.as_view(), name="show_all"),
+    path('', ProfileListView.as_view(), name="show_all_profiles"),
+    path('show_all_profiles', ProfileListView.as_view(), name="show_all_profiles"),
 ]

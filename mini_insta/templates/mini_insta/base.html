@@ -1,0 +1,38 @@
+<!-- 
+File: base.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/12/2026
+Description: A base template that other pages can build off upon
+ -->
+
+{% load static %}
+<html>
+    <head>Mini Instagram</head>
+
+    <body>
+        <!--Header-->
+        <header>
+            <h1>Mini Instagram</h1>
+        </header>
+
+        <!---Navigation bar-->
+        <nav>
+            <ul>
+                <li><a href="{% url 'show_all_profiles' %}">Home</a></li>
+            </ul>
+            <!--Add the single profile or something-->
+        </nav>
+        
+        <!--Content other pages insert-->
+        {% block content %}
+        {% endblock %}
+
+        <!--Footer-->
+        <footer>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'show_all_profiles' %}">Home</a></li>
+                </ul>
+            </nav>
+        </footer>
+    </body>
+</html>
