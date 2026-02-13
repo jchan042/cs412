@@ -10,6 +10,7 @@ from django.db import models
 class Profile(models.Model): 
     '''Encapsulate the data of an Insta Profile'''
     
+    # all the attributes of the profile model
     username = models.TextField(blank=True)
     display_name = models.TextField(blank=True)
     profile_image_url = models.URLField(blank=True)

@@ -8,6 +8,9 @@ Description: The page to display one single profile
 
 {% block content %}
 
+<!-- Display username -->
+<h2>@{{profile.username}}</h2>
+
 <div class="profile-container">
     <!-- Profile Header Section -->
     <div class="profile-header">
@@ -18,8 +21,10 @@ Description: The page to display one single profile
 
         <!-- Profile Information -->
         <div class="profile-info">
-            <!-- Username -->
-            <h1 class="profile-username">{{ profile.username }}</h1>
+            <!-- Display Name -->
+            <div class="profile-display-name">
+                <h1>{{ profile.display_name }}</h1>
+            </div>
 
             <!-- Followers/Following -->
             <div class="profile-stats">
@@ -36,21 +41,21 @@ Description: The page to display one single profile
                     <div>following</div>
                 </div>
             </div>
-
-            <!-- Name and Bio -->
-            <div class="profile-details">
-                <div class="profile-display-name">{{ profile.display_name }}</div>
-                <div class="profile-bio">{{ profile.bio_text }}</div>
-                <div class="profile-meta">Joined {{ profile.join_date|date:"F d, Y" }}</div>
+            <div class="join">
+                <div>Joined: {{ profile.join_date }}</div>
             </div>
         </div>
     </div>
 
+    <!-- Bio section -->
+    <div class="bio-section">
+        <div class="profile-bio">{{ profile.bio_text }}</div>
+    </div>
+
     <!-- Posts -->
     <div class="posts-section">
-        <div class="posts-header">POSTS</div>
-        <div class="no-posts">
-            <p>📷</p>
+        <div class="posts-header"><h1>POSTS</h1></div>
+        <div class="posts">
             <p>No posts yet</p>
         </div>
     </div>

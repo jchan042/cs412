@@ -8,24 +8,24 @@ Description: The page to display all of the instagram profiles
 
 {% block content %}
 
-<h1>All Profiles</h1>
+<h2>All Profiles</h2>
+
+<!-- start main -->
 <main>
     <div class="grid">
-
-        <!--Loop to display all of the images-->
-        {% for pfp in profiles %}
-        <div class="profile-item">
-            <!--Add link later-->
-            <div class="profile-details">
-                <h3><strong>@{{pfp.username}}: {{pfp.display_name}}</strong></h3>
+        <!-- Loop to display all profiles -->
+        {% for profile in profiles %}
+        <!-- Make the whole div clickable -->
+        <a href="{% url 'profile' profile.pk %}">
+            <div class="profile-item">
+                <img src="{{ profile.profile_image_url }}" alt="{{ profile.username }}'s profile picture">
+                <h3>@{{ profile.username }}</h3>
+                <p>{{ profile.display_name }}</p>
             </div>
-            <!--Display the image as a link to the correct profile-->
-            <a href="{% url 'profile' pfp.pk %}"><img src="{{pfp.profile_image_url}}" alt="{{profile_image_url}}" width="400" height="400"></a>
-        </div>
+        </a>
+        
         {% endfor %}
-        <!--End for loop-->
-
-
+        <!-- End for loop -->
     </div>
 </main>
 

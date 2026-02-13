@@ -16,14 +16,6 @@ Description: A base template that other pages can build off upon
         <header>
             <h1>Mini Instagram</h1>
         </header>
-
-        <!---Navigation bar-->
-        <nav>
-            <ul>
-                <li><a href="{% url 'show_all_profiles' %}">Home</a></li>
-            </ul>
-            <!--Add the single profile or something-->
-        </nav>
         
         <!--Content other pages insert-->
         {% block content %}
@@ -33,7 +25,7 @@ Description: A base template that other pages can build off upon
         <footer>
             <nav>
                 <ul>
-                    <li><a href="{% url 'show_all_profiles' %}">Home</a></li>
+                    <li><a href="{% url 'show_all_profiles' %}"><img src="https://cdn-icons-png.flaticon.com/512/5974/5974907.png" alt="Home Button"></a></li>
                 </ul>
             </nav>
         </footer>
