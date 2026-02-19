@@ -55,8 +55,25 @@ Description: The page to display one single profile
     <!-- Posts -->
     <div class="posts-section">
         <div class="posts-header"><h1>POSTS</h1></div>
-        <div class="posts">
-            <p>No posts yet</p>
+
+        <div class="posts-grid">
+            {% for post in profile.get_all_posts %}
+                <a href="{% url 'post' post.pk %}">
+                    <div class="post-item">
+                        {% with photos=post.get_all_photos %}
+                            {% if photos %}
+                                <img src="{{ photos.first.image_url }}" alt="Post photo">
+                            {% else %}
+                                <img src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg" 
+                                alt="No image available">
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </a>
+                <!-- If no posts -->
+                {% empty %}
+                <p>No posts yet.</p>
+            {% endfor %}
         </div>
     </div>
 </div>

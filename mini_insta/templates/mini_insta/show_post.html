@@ -1,0 +1,36 @@
+<!-- 
+File: show_post.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/16/2026
+Description: The page to display the contents of a post
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<div class="post-detail-container">
+
+    <!-- Photos grid -->
+    <div class="posts-grid">
+        {% for photo in post.get_all_photos %}
+            <div class="post-item">
+                <img src="{{ photo.image_url }}" alt="Post photo">
+            </div>
+        {% empty %}
+            <img src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg" 
+            alt="No image available">
+        {% endfor %}
+    </div>
+
+    <!-- Post info -->
+    <div class="post-info">
+        <p class="post-caption">{{ post.caption }}</p>
+        <small class="post-timestamp">{{ post.timestamp }}</small>
+    </div>
+
+    <!-- Back to profile -->
+    <a href="{% url 'profile' post.profile.pk %}">← Back to @{{ post.profile.username }}</a>
+
+</div>
+
+{% endblock %}

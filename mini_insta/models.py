@@ -17,7 +17,45 @@ class Profile(models.Model):
     bio_text = models.TextField(blank=True)
     join_date = models.DateTimeField(auto_now=True)
     
-    # implement string represent 
+    # implement string representation
     def __str__(self):
         '''Return a string representation for this model instance'''
-        return f'{self.username} profile'      
+        return f'{self.username} profile'    
+    
+    # accessor method to find and return all posts for a given profile 
+    def get_all_posts(self):
+        '''Return a QuerySet of posts about this profile'''
+    
+        return Post.objects.filter(profile=self).order_by('timestamp')
+    
+# Post model for a user's profile 
+class Post(models.Model):
+    '''Encapsulate the data of a person's Instagram post'''
+    
+    # all the attributes of the post model
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+    caption = models.TextField(blank=True)
+    
+    # implement string representation
+    def __str__(self):
+        '''Return a string representation for this model instance'''
+        return f'{self.profile} post {self.pk}'
+    
+    # accessor method to find and return all posts for a given profile 
+    def get_all_photos(self):
+        '''Return a QuerySet of photos about this post'''
+        return Photo.objects.filter(post=self).order_by('timestamp')
+    
+class Photo(models.Model):
+    '''Encapsulate the data of an Insta Photo for a post'''
+    
+    # all the attributes of the post model
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    image_url = models.URLField(blank=True)
+    timestamp = models.DateTimeField(auto_now=True)
+    
+    # implement string representation
+    def __str__(self):
+        '''Return a string representation for this model instance'''
+        return f'{self.post.profile} post {self.post.pk} photo {self.pk}'
