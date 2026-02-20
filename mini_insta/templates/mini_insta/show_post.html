@@ -8,28 +8,44 @@ Description: The page to display the contents of a post
 
 {% block content %}
 
+<!-- Display username -->
+<h2>@{{ post.profile.username }}'s Post</h2>
+
 <div class="post-detail-container">
 
-    <!-- Photos grid -->
-    <div class="posts-grid">
-        {% for photo in post.get_all_photos %}
-            <div class="post-item">
+    <!-- Left is photos only -->
+    <div class="post-left">
+        <div class="post-photos">
+            {% for photo in post.get_all_photos %}
                 <img src="{{ photo.image_url }}" alt="Post photo">
-            </div>
-        {% empty %}
-            <img src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg" 
-            alt="No image available">
-        {% endfor %}
+            {% empty %}
+                <img src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg" 
+                alt="No image available">
+            {% endfor %}
+        </div>
+        <!-- Back link at the bottom -->
+        <a class="back-link" href="{% url 'profile' post.profile.pk %}">Back to @{{ post.profile.username }}</a>
     </div>
 
-    <!-- Post info -->
-    <div class="post-info">
-        <p class="post-caption">{{ post.caption }}</p>
-        <small class="post-timestamp">{{ post.timestamp }}</small>
-    </div>
+    <!-- Right is caption, then comments below -->
+    <div class="post-right">
 
-    <!-- Back to profile -->
-    <a href="{% url 'profile' post.profile.pk %}">← Back to @{{ post.profile.username }}</a>
+        <!-- Caption and timestamp -->
+        <div class="post-info">
+            <p class="post-caption"><b>@{{post.profile.username}}: </b>{{ post.caption }}</p>
+            <br>
+            <small class="post-timestamp">{{ post.timestamp }}</small>
+        </div>
+
+        <!-- Divider -->
+        <hr>
+
+        <!-- Comments section -->
+        <div class="post-comments">
+            <h3>Comments</h3>
+        </div>
+
+    </div>
 
 </div>
 
