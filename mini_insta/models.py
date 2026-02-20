@@ -3,6 +3,7 @@
 # Description: Used to define the DB structure/schema
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -42,10 +43,15 @@ class Post(models.Model):
         '''Return a string representation for this model instance'''
         return f'{self.profile} post {self.pk}'
     
-    # accessor method to find and return all posts for a given profile 
+    # accessor method to find and return all photos for a given post 
     def get_all_photos(self):
         '''Return a QuerySet of photos about this post'''
         return Photo.objects.filter(post=self).order_by('timestamp')
+    
+    # accessor methond to find and return the correct url for the post
+    def get_absolute_url(self):
+        '''Return the URL to display this post'''
+        return reverse('post', kwargs={'pk': self.pk})
     
 class Photo(models.Model):
     '''Encapsulate the data of an Insta Photo for a post'''

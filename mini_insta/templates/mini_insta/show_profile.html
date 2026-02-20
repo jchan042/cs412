@@ -29,8 +29,10 @@ Description: The page to display one single profile
             <!-- Followers/Following -->
             <div class="profile-stats">
                 <div class="stat-item">
-                    <div class="stat-number">TBD</div>
-                    <div>posts</div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{ profile.get_all_posts.count}}</div>
+                        <div>posts</div>
+                </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">TBD</div>

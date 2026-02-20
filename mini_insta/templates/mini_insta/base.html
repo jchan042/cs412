@@ -26,6 +26,13 @@ Description: A base template that other pages can build off upon
             <nav>
                 <ul>
                     <li><a href="{% url 'show_all_profiles' %}"><img src="https://cdn-icons-png.flaticon.com/512/5974/5974907.png" alt="Home Button"></a></li>
+                    
+                    <!-- Only show create post button when on a profile page -->
+                    {% if profile %}
+                        <li><a href="{% url 'create_post' profile.pk %}"> <img src="https://www.pngmart.com/files/21/Add-Button-PNG.png" 
+                            alt="Add a post button"></a></li>
+                    {% endif %}
+
                 </ul>
             </nav>
         </footer>

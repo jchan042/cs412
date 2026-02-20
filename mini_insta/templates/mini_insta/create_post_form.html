@@ -1,0 +1,40 @@
+<!-- 
+File: create_post_form.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/12/2026
+Description: Form to create a post 
+ -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Create a New Post</h2>
+
+<div class="form-container">
+    <form action="{% url 'create_post' profile.pk %}" method="POST">
+        {% csrf_token %}
+
+        <!-- Caption field -->
+        <div class="form-field">
+            <label for="caption">Caption:</label>
+            {{ form.caption }}
+        </div>
+
+        <!-- Image URL field -->
+        <div class="form-field">
+            <label for="image_url">Image URL:</label>
+            <input type="url" name="image_url" id="image_url" placeholder="Paste an image URL here">
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-buttons">
+            <input type="submit" value="Post">
+            <a href="{% url 'profile' profile.pk %}">
+                <button type="button">Cancel</button>
+            </a>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
