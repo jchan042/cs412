@@ -11,9 +11,16 @@ Description: Form to create a post
 <h2>Create a New Post</h2>
 
 <div class="form-container">
-    <form action="{% url 'create_post' profile.pk %}" method="POST">
+    <form action="{% url 'create_post' profile.pk %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
+        <!-- Upload images -->
+         <div class="form-buttons">
+            <input type="file" name="upload-photos" id="upload-photos" multiple>
+         </div>
+
+
+         <br>
         <!-- Caption field -->
         <div class="form-field">
             <label for="caption">Caption:</label>
@@ -21,10 +28,10 @@ Description: Form to create a post
         </div>
 
         <!-- Image URL field -->
-        <div class="form-field">
+        <!-- <div class="form-field">
             <label for="image_url">Image URL:</label>
             <input type="url" name="image_url" id="image_url" placeholder="Paste an image URL here">
-        </div>
+        </div> -->
 
         <!-- Buttons -->
         <div class="form-buttons">

@@ -149,6 +149,156 @@ body {
     font-size: 20px;
 }
 
+/* Post section */
+
+.posts-grid{
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+}
+
+.post-item {
+    width: 300px;
+    height: 300px;
+    border: 5px solid white;
+    border-radius: 8px;
+}
+
+.post-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-item img:hover{
+    transform: scale(1.05);
+    border-radius: 5px;
+    box-shadow: 0 0 30px #e56969;
+}
+
+/* Post detail page */
+
+.post-detail-container {
+    display: flex;
+    flex-direction: row;  /* side by side */
+    align-items: flex-start;
+    padding: 40px;
+    gap: 40px;
+}
+
+/* Left side is photos */
+.post-left {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;  /* takes up half the space */
+}
+
+.post-photos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 400px;
+}
+
+.post-photos img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.back-link {
+    color: black;
+    font-size: 16px;
+    margin-left: 130px;
+}
+
+/* Comments on the right */
+.post-right {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;  /* takes up half the space */
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 500px;
+}
+
+.post-right h3 {
+    color: black;
+    text-align: left;
+    margin: 0;
+}
+
+.post-right p {
+    color: #555;
+}
+
+.post-info {
+    color: black;
+}
+
+.post-caption {
+    font-size: 22px;
+    color: black;
+    margin: 0;
+}
+
+.post-timestamp {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Create a new Post */
+
+.form-container {
+    padding: 40px 100px;
+    color: black;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.form-field input, 
+.form-field textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-size: 16px;
+    width: 500px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.form-buttons input, 
+.form-buttons button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #8a49a1;
+    color: white;
+}
+
+.form-buttons input:hover, 
+.form-buttons button:hover {
+    background-color: #c1558b;
+}
+
 /* Footer */
 
 footer {
@@ -157,6 +307,15 @@ footer {
 
 footer li {
     list-style: none;
+}
+
+footer ul {
+    display: flex;
+    flex-direction: row;  /* puts items side by side */
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
 }
 
 footer img {

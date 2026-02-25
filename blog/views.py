@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
-from .models import Article
-from .forms import CreateArticleform, CreateCommentForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Article, Comment
+from .forms import CreateArticleForm, CreateCommentForm, UpdateArticleForm
 from django.urls import reverse
 import random
 
@@ -43,8 +43,17 @@ class CreateArticleView(CreateView):
     [1] display the HTML form to user (GET)
     [2] process the form submission and store new Article object (POST)'''
     
-    form_class = CreateArticleform
+    form_class = CreateArticleForm
     template_name = "blog/create_article_form.html"
+    
+    def form_valid(self, form):
+        '''Override the default method to add some debug info'''
+        
+        # print out the form data:
+        print(f'CreateArticleView.form_valid(): {form.cleaned_data}')
+        
+        # delegate work to the superclass to do the rest:
+        return super().form_valid(form)
     
 class CreateCommentView(CreateView):
     '''A view to handle creation of a new Comment on an Article'''
@@ -52,11 +61,11 @@ class CreateCommentView(CreateView):
     form_class = CreateCommentForm
     template_name = "blog/create_comment_form.html"
     
-    def get_succes_url(self):
+    def get_success_url(self):
         '''Provide a URL to redirect after posting comment'''
         
         pk = self.kwargs['pk']
-        return reverse('article', lwargs={'pk':pk})
+        return reverse('article', kwargs={'pk':pk})
     
     def get_context_data(self):
         '''Return the dictionary of context vars for use in the templates'''
@@ -95,3 +104,30 @@ class CreateCommentView(CreateView):
  
         # delegate the work to the superclass method form_valid:
         return super().form_valid(form)
+    
+class UpdateArticleView(UpdateView):
+    '''View class to handle update of an article based on its PK'''
+    
+    model = Article
+    form_class = UpdateArticleForm
+    template_name = "blog/update_article_form.html"
+    
+class DeleteCommentView(DeleteView):
+    '''View class to delete a comment on an Article'''
+    
+    model = Comment
+    template_name = "blog/delete_comment_form.html"
+    
+    def get_success_url(self):
+        '''Return the URL to redirect to after a successful delete'''
+        
+        # find the PK for this comment:
+        pk = self.kwargs['pk']
+        
+        # find the comment object:
+        comment = Comment.objects.get(pk=pk)
+        
+        article = comment.article
+        
+        # return the URL to redirect to:
+        return reverse('article', kwargs={'pk': article.pk})

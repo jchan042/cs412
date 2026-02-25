@@ -4,14 +4,14 @@
 from django import forms
 from .models import Article, Comment
 
-class CreateArticleform(forms.ModelForm):
+class CreateArticleForm(forms.ModelForm):
     '''A form to add an Article to the database'''
     
     class Meta:
         '''associate this form with a model from our db'''
         
         model = Article
-        fields = ['author', 'title', 'text', 'image_url']
+        fields = ['author', 'title', 'text', 'image_file']
         
 class CreateCommentForm(forms.ModelForm):
     '''A form to add a Comment about an Article'''
@@ -23,3 +23,10 @@ class CreateCommentForm(forms.ModelForm):
         # fields = ['article', 'author', 'text',]
         fields = ['author', 'text'] # don't want dropdown list
         
+class UpdateArticleForm(forms.ModelForm):
+    '''A form to handle an update to an Article'''
+    
+    class Meta:
+        '''Associate this form with a model in our DB'''
+        model = Article
+        fields = ['title', 'text'] # which fields we can update 

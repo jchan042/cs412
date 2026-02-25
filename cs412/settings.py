@@ -137,12 +137,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL= "media/"  # note: no leading slash!
-
 import socket
 CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     STATIC_URL = '/jchan042/static/'
     MEDIA_URL = '/jchan042/media/'
+
+
+# declarations to reference a media file
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = "/media/"

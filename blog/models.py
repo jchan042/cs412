@@ -10,18 +10,19 @@ class Article(models.Model):
     author = models.TextField(blank=True)
     text = models.TextField(blank=True)
     published = models.DateTimeField(auto_now=True)
-    image_url = models.URLField(blank=True)
+    # image_url = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True) # an actual image
     
     # string representation
     def __str__(self):
-        ''' Return a string representation fo this model instance'''
+        ''' Return a string representation for this model instance'''
         return f'{self.title} by {self.author}'
     
     def get_absolute_url(self):
         '''Return a URL to display one instance of this object'''
         return reverse('article', kwargs={'pk':self.pk})
     
-    def get_all_commnets(self):
+    def get_all_comments(self):
         '''Return a QuerySet of comments about this article'''
         comments = Comment.objects.filter(article=self)
         return comments 
