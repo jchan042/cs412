@@ -3,9 +3,9 @@
 # Description: Returns an HTML template view for each URL 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Profile, Post, Photo
-from .forms import CreatePostForm
+from .forms import CreatePostForm, UpdateProfileForm
 
 # Create your views here.
 
@@ -70,3 +70,16 @@ class CreatePostView(CreateView):
         # image_url = self.request.POST.get('image_url')
         # if image_url:
         #     Photo.objects.create(post=post, image_url=image_url)
+        
+# View for updating a user's profile 
+class UpdateProfileView(UpdateView):
+    model = Profile 
+    form_class = UpdateProfileForm
+    template_name = "mini_insta/update_profile_form.html"
+    
+    def get_context_data(self, **kwargs):
+        '''Add the profile to the context so the template can use it'''
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context['profile'] = profile
+        return context

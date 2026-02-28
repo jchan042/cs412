@@ -1,0 +1,52 @@
+<!-- 
+File: update_profile_form.html
+Author: Jocelyn Chan (jchan042@bu.edu) 2/26/2026
+Description: Form to update a profile 
+ -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Update profile for @{{ profile.username }}</h2>
+
+<div class="form-container">
+    <form action="{% url 'update' profile.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Update display name -->
+        <div class="form-field">
+            <label for="id_display_name"><strong>Display Name</strong></label>
+            {{ form.display_name }}
+        </div>
+
+        <!-- Update bio -->
+        <div class="form-field">
+            <label for="id_bio_text"><strong>Bio</strong></label>
+            {{ form.bio_text }}
+        </div>
+
+        <!-- Update profile image URL -->
+        <div class="form-field">
+            <label for="id_profile_image_url"><strong>Profile Image URL</strong></label>
+            {{ form.profile_image_url }}
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-buttons">
+            <input type="submit" value="Save Changes">
+            <a href="{% url 'profile' profile.pk %}">
+                <button type="button">Cancel</button>
+            </a>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
+
+<!-- Image URL field -->
+        <!-- <div class="form-field">
+            <label for="image_url">Image URL:</label>
+            <input type="url" name="image_url" id="image_url" placeholder="Paste an image URL here">
+        </div> -->

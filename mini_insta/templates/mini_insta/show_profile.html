@@ -54,6 +54,13 @@ Description: The page to display one single profile
         <div class="profile-bio">{{ profile.bio_text }}</div>
     </div>
 
+    <!-- Update profile button -->
+    <div class="update-profile">
+        <div class="form-buttons">
+            <a href="{% url 'update' profile.pk %}">Update Profile</a>
+         </div>
+    </div>
+
     <!-- Posts -->
     <div class="posts-section">
         <div class="posts-header"><h1>POSTS</h1></div>

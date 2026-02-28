@@ -29,6 +29,11 @@ class Profile(models.Model):
     
         return Post.objects.filter(profile=self).order_by('timestamp')
     
+    # redirect user to this URL 
+    def get_absolute_url(self):
+        '''Return the URL to display this profile'''
+        return reverse('profile', kwargs={'pk': self.pk})
+    
 # Post model for a user's profile 
 class Post(models.Model):
     '''Encapsulate the data of a person's Instagram post'''
