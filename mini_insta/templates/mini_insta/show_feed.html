@@ -1,0 +1,70 @@
+<!-- 
+File: show_feed.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/01/2026
+Description: The post feed for a profile
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>@{{ profile.username }}'s Feed</h2>
+
+<div class="feed-container">
+    <a href="{% url 'profile' profile.pk %}" class="back-link">Back to @{{ profile.username }}'s Profile</a>
+
+
+    {% for post in posts %}
+    <div class="feed-post">
+
+        <!-- Post header: profile picture and username -->
+        <div class="feed-post-header">
+            <img src="{{ post.profile.profile_image_url }}" alt="{{ post.profile.username }}'s picture">
+            <a href="{% url 'profile' post.profile.pk %}">
+                <strong>@{{ post.profile.username }}</strong>
+            </a>
+            <span class="feed-display-name">{{ post.profile.display_name }}</span>
+        </div>
+
+        <!-- First photo -->
+        <div class="feed-post-photo">
+            {% with photos=post.get_all_photos %}
+                {% if photos %}
+                    <a href="{% url 'post' post.pk %}">
+                        <img src="{{ photos.first.get_image_url }}" alt="Post photo">
+                    </a>
+                {% else %}
+                    <a href="{% url 'post' post.pk %}">
+                        <img src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg"
+                        alt="No image available">
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Likes and caption -->
+        <div class="feed-post-info">
+            <div class="like-count">{{ post.get_likes.count }} likes</div>
+            <p class="post-caption"><b>@{{ post.profile.username }}: </b>{{ post.caption }}</p>
+            <small class="post-timestamp">{{ post.timestamp }}</small>
+        </div>
+
+        <!-- Comments -->
+        <div class="feed-post-comments">
+            {% for comment in post.get_all_comments %}
+                <div class="comment-item">
+                    <p><b>@{{ comment.profile.username }}</b> {{ comment.text }}</p>
+                </div>
+            {% empty %}
+                <p class="no-comments">No comments yet.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% empty %}
+        <p class="feed-empty">No posts in your feed yet. Follow some profiles to see their posts!</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

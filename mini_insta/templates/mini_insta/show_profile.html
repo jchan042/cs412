@@ -58,11 +58,12 @@ Description: The page to display one single profile
         <div class="profile-bio">{{ profile.bio_text }}</div>
     </div>
 
-    <!-- Update profile button -->
+    <!-- Update profile and feed buttons -->
     <div class="update-profile">
         <div class="form-buttons">
             <a href="{% url 'update' profile.pk %}">Update Profile</a>
-         </div>
+            <a href="{% url 'feed' profile.pk %}">View Feed</a>
+        </div>
     </div>
 
     <!-- Posts -->

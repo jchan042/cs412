@@ -48,6 +48,14 @@ class Profile(models.Model):
     def get_num_following(self):
         '''Return the count of profiles being followed'''
         return len(self.get_following())
+    
+    # accessor method to get the post feed for this profile
+    def get_post_feed(self):
+        '''Return a list of Posts from all profiles that this profile follows, most recent first'''
+        # get all profiles that this profile follows
+        following = self.get_following()
+        # get all posts from those profiles, ordered by most recent first
+        return Post.objects.filter(profile__in=following).order_by('-timestamp')
 
     # redirect user to this URL 
     def get_absolute_url(self):
