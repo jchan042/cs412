@@ -3,9 +3,10 @@
 # Description: Returns an HTML template view for each URL 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Profile, Post, Photo
 from .forms import CreatePostForm, UpdateProfileForm
+from django.urls import reverse
 
 # Create your views here.
 
@@ -82,4 +83,37 @@ class UpdateProfileView(UpdateView):
         context = super().get_context_data(**kwargs)
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         context['profile'] = profile
+        return context
+    
+# View for deleting a post
+class DeletePostView(DeleteView):
+    '''Define a view class to handle deleting a post'''
+    
+    model = Post
+    template_name = "mini_insta/delete_post_form.html"
+    
+    def get_context_data(self, **kwargs):
+        '''Add the post and profile to the context so the template can use them'''
+        context = super().get_context_data(**kwargs)
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        context['post'] = post
+        context['profile'] = post.profile
+        return context
+    
+    def get_success_url(self):
+        '''Redirect to the profile page after a successful delete'''
+        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+    
+# View for updating a post
+class UpdatePostView(UpdateView):
+    '''Define a view class to handle updating a post caption'''
+    model = Post
+    fields = ['caption']
+    template_name = "mini_insta/update_post_form.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        context['post'] = post
+        context['profile'] = post.profile
         return context

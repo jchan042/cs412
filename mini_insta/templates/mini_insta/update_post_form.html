@@ -1,0 +1,49 @@
+<!-- 
+File: update_post_form.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/01/2026
+Description: The page to update a post's caption
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Update @{{ profile.username }}'s Post</h2>
+
+<div class="post-detail-container">
+
+    <!-- Show the post photos -->
+    <div class="post-left">
+        <div class="post-photos">
+            {% for photo in post.get_all_photos %}
+                <img src="{{ photo.get_image_url }}" alt="Post photo">
+            {% empty %}
+                <img src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg"
+                alt="No image available">
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="post-right">
+
+        <!-- Update caption form -->
+        <form action="{% url 'update_post' post.pk %}" method="POST">
+            {% csrf_token %}
+
+            <div class="form-field">
+                <label for="id_caption"><strong>Caption</strong></label>
+                {{ form.caption }}
+            </div>
+
+            <div class="form-buttons">
+                <input type="submit" value="Save">
+                <a href="{% url 'post' post.pk %}">
+                    <button type="button">Cancel</button>
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

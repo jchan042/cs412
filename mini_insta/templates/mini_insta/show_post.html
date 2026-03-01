@@ -23,8 +23,12 @@ Description: The page to display the contents of a post
                 alt="No image available">
             {% endfor %}
         </div>
-        <!-- Back link at the bottom -->
-        <a class="back-link" href="{% url 'profile' post.profile.pk %}">Back to @{{ post.profile.username }}</a>
+        <!-- Links at the bottom -->
+        <div class="post-left-links">
+            <a class="back-link" href="{% url 'profile' post.profile.pk %}">Back to @{{ post.profile.username }}</a>
+            <a class="update-link" href="{% url 'update_post' post.pk %}">Update Post</a>
+            <a class="delete-link" href="{% url 'delete_post' post.pk %}">Delete Post</a>
+        </div>
     </div>
 
     <!-- Right is caption, then comments below -->
