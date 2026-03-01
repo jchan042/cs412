@@ -32,9 +32,14 @@ Description: A base template that other pages can build off upon
                         <li><a href="{% url 'show_all_profiles' %}"><img src="https://cdn-icons-png.flaticon.com/512/5974/5974907.png" alt="Home Button"></a></li>
                     {% endif %}
 
-                    <!-- Only show create post button when on a profile page -->
+                    <!-- Create post button -->
                     {% if profile %}
                         <li><a href="{% url 'create_post' profile.pk %}"><img src="https://www.pngmart.com/files/21/Add-Button-PNG.png" alt="Add a post button"></a></li>
+                    {% endif %}
+
+                    <!-- Search link -->
+                    {% if profile %}
+                        <li><a href="{% url 'search' profile.pk %}"><img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search Button"></a></li>
                     {% endif %}
 
                     <!-- Profile link -->

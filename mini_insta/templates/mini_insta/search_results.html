@@ -1,0 +1,75 @@
+<!-- 
+File: search_results.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/01/2026
+Description: Search results page for profiles and posts
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Search Results for "{{ query }}"</h2>
+
+<div class="form-container">
+    <!-- Search form stays at the top so user can refine -->
+    <form action="{% url 'search' profile.pk %}" method="GET">
+        <div class="form-field">
+            <label for="query"><strong>Search Profiles & Posts</strong></label>
+            <input type="text" 
+                   name="query" 
+                   id="query" 
+                   placeholder="Search by username, name, or caption..."
+                   value="{{ query }}">
+        </div>
+        <div class="form-buttons">
+            <input type="submit" value="Search">
+            <a href="{% url 'profile' profile.pk %}">
+                <button type="button">Cancel</button>
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Profile results -->
+<div class="search-section">
+    <h3 class="search-section-title">Profiles</h3>
+    <div class="grid">
+        {% for result in profiles %}
+            <a href="{% url 'profile' result.pk %}">
+                <div class="profile-item">
+                    <img src="{{ result.profile_image_url }}" alt="{{ result.username }}'s profile picture">
+                    <h3>@{{ result.username }}</h3>
+                    <p>{{ result.display_name }}</p>
+                </div>
+            </a>
+        {% empty %}
+            <p class="search-empty">No profiles found matching "{{ query }}".</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Post results -->
+<div class="search-section">
+    <h3 class="search-section-title">Posts</h3>
+    <div class="posts-grid">
+        {% for post in posts %}
+            <a href="{% url 'post' post.pk %}">
+                <div class="post-item">
+                    {% with photos=post.get_all_photos %}
+                        {% if photos %}
+                            <img src="{{ photos.first.get_image_url }}" alt="Post photo">
+                        {% else %}
+                            <img src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg"
+                            alt="No image available">
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </a>
+            <p class="search-post-caption"><b>@{{ post.profile.username }}:</b> {{ post.caption }}</p>
+        {% empty %}
+            <p class="search-empty">No posts found matching "{{ query }}".</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

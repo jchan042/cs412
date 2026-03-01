@@ -453,6 +453,35 @@ body {
     margin-top: 40px;
 }
 
+/* Search */
+
+.search-section {
+    padding: 20px 100px;
+    color: black;
+}
+
+.search-section-title {
+    color: black;
+    text-align: left;
+    font-size: 22px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #8a49a1;
+    padding-bottom: 5px;
+}
+
+.search-empty {
+    color: #555;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.search-post-caption {
+    font-size: 14px;
+    color: black;
+    margin: 4px 0 16px 0;
+    width: 300px;
+}
+
 /* Footer */
 
 footer {
