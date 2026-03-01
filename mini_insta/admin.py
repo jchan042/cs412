@@ -4,9 +4,12 @@
 
 from django.contrib import admin
 # import the models first
-from .models import Profile, Post, Photo
+from .models import *
 
 # register the models into the admin
 admin.site.register(Profile)
 admin.site.register(Post)
 admin.site.register(Photo)
+admin.site.register(Follow)
+admin.site.register(Comment)
+admin.site.register(Like)

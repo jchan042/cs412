@@ -117,3 +117,17 @@ class UpdatePostView(UpdateView):
         context['post'] = post
         context['profile'] = post.profile
         return context
+    
+# View for showing a profile's followers
+class ShowFollowersDetailView(DetailView):
+    '''Define a view class to show all followers of a profile'''
+    model = Profile
+    template_name = "mini_insta/show_followers.html"
+    context_object_name = "profile"
+
+# View for showing who a profile is following
+class ShowFollowingDetailView(DetailView):
+    '''Define a view class to show all profiles that a profile follows'''
+    model = Profile
+    template_name = "mini_insta/show_following.html"
+    context_object_name = "profile"

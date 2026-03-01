@@ -26,7 +26,7 @@ Description: The page to display one single profile
                 <h1>{{ profile.display_name }}</h1>
             </div>
 
-            <!-- Followers/Following -->
+            <!-- Followers/Following Information -->
             <div class="profile-stats">
                 <div class="stat-item">
                     <div class="stat-item">
@@ -35,12 +35,16 @@ Description: The page to display one single profile
                 </div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">TBD</div>
-                    <div>followers</div>
+                    <a href="{% url 'followers' profile.pk %}" class="stat-link">
+                        <div class="stat-number">{{ profile.get_num_followers }}</div>
+                        <div>followers</div>
+                    </a>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">TBD</div>
-                    <div>following</div>
+                    <a href="{% url 'following' profile.pk %}" class="stat-link">
+                        <div class="stat-number">{{ profile.get_num_following }}</div>
+                        <div>following</div>
+                    </a>
                 </div>
             </div>
             <div class="join">

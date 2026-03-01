@@ -218,7 +218,6 @@ body {
     align-items: center;
 }
 
-/* buttons on the post page */
 .back-link,
 .update-link,
 .delete-link {
@@ -230,7 +229,7 @@ body {
     background-color: #8a49a1;
     color: white;
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 10px;
 }
 
 .back-link:hover,
@@ -249,7 +248,6 @@ body {
     color: white;
     text-decoration: none;
     margin-left: 20px;
-    margin-bottom: 20px;
 }
 
 .update-profile a:hover {
@@ -290,6 +288,19 @@ body {
 
 .post-timestamp {
     font-size: 14px;
+    color: #555;
+}
+
+/* Comments */
+
+.comment-item p {
+    font-size: 16px;
+    color: black;
+    margin: 0;
+}
+
+.comment-item small {
+    font-size: 12px;
     color: #555;
 }
 

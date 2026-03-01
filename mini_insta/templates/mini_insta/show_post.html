@@ -36,17 +36,27 @@ Description: The page to display the contents of a post
 
         <!-- Caption and timestamp -->
         <div class="post-info">
+            <!-- Like count -->
+            <div class="like-count">
+               {{ post.get_likes.count }} likes
+            </div>
             <p class="post-caption"><b>@{{post.profile.username}}: </b>{{ post.caption }}</p>
             <br>
             <small class="post-timestamp">{{ post.timestamp }}</small>
         </div>
 
-        <!-- Divider -->
         <hr>
 
         <!-- Comments section -->
         <div class="post-comments">
             <h3>Comments</h3>
+            {% for comment in post.get_all_comments %}
+                <div class="comment-item">
+                    <p><b>@{{ comment.profile.username }}</b> {{ comment.text }}</p>
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
         </div>
 
     </div>

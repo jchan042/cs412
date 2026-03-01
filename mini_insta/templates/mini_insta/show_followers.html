@@ -1,0 +1,31 @@
+<!-- 
+File: show_followers.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/01/2026
+Description: The page to display all followers of a profile
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>@{{ profile.username }}'s Followers</h2>
+
+<div class="profile-container">
+    <a href="{% url 'profile' profile.pk %}" class="back-link">Back to @{{ profile.username }}</a>
+
+    <div class="grid">
+        {% for follower in profile.get_followers %}
+            <a href="{% url 'profile' follower.pk %}">
+                <div class="profile-item">
+                    <img src="{{ follower.profile_image_url }}" alt="{{ follower.username }}'s profile picture">
+                    <h3>@{{ follower.username }}</h3>
+                    <p>{{ follower.display_name }}</p>
+                </div>
+            </a>
+        {% empty %}
+            <p>No followers yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

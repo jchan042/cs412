@@ -29,6 +29,26 @@ class Profile(models.Model):
     
         return Post.objects.filter(profile=self).order_by('timestamp')
     
+    # accessor method to get a list of followers
+    def get_followers(self):
+        '''Return a list of Profiles who follow this profile'''
+        return [f.follower_profile for f in Follow.objects.filter(profile=self)]
+    
+    # accesor method fo getting the number of followers
+    def get_num_followers(self):
+        '''Return the count of followers'''
+        return len(self.get_followers())
+    
+    # accessor method to get a list of following 
+    def get_following(self):
+        '''Return a list of Profiles that this profile follows'''
+        return [f.profile for f in Follow.objects.filter(follower_profile=self)]
+    
+    # accessor method to get the number of following 
+    def get_num_following(self):
+        '''Return the count of profiles being followed'''
+        return len(self.get_following())
+
     # redirect user to this URL 
     def get_absolute_url(self):
         '''Return the URL to display this profile'''
@@ -58,6 +78,16 @@ class Post(models.Model):
         '''Return the URL to display this post'''
         return reverse('post', kwargs={'pk': self.pk})
     
+    # accessor method to find and return all comments for a given post
+    def get_all_comments(self):
+        '''Return a QuerySet of comments on this post'''
+        return Comment.objects.filter(post=self).order_by('timestamp')
+    
+    # accessor method to find and return all likes for a given post
+    def get_likes(self):
+        '''Return a QuerySet of likes on this post'''
+        return Like.objects.filter(post=self)
+    
 class Photo(models.Model):
     '''Encapsulate the data of an Insta Photo for a post'''
     
@@ -80,3 +110,42 @@ class Photo(models.Model):
         if self.image_file:
             return self.image_file.url
         return self.image_url
+    
+class Follow(models.Model):
+    '''Encapsulate the data of a Follow relationship between two Profiles'''
+    
+    # the profile being followed 
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="profile")
+    
+    # the profile doing the following 
+    follower_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="follower_profile")
+    timestamp = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        '''Return a string representation of this Follow relationship'''
+        return f'{self.follower_profile.username} follows {self.profile.username}'
+    
+class Comment(models.Model):
+    '''Encapsulate the data of a Comment on a Post'''
+    
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+    text = models.TextField(blank=False)
+    
+    def __str__(self):
+        '''Return a string representation of this Comment'''
+        # first 50 chars
+        return f'@{self.profile.username} on post {self.post.pk}: "{self.text[:50]}"'
+    
+    
+class Like(models.Model):
+    '''Encapsulate the data of a Like on a Post'''
+    
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        '''Return a string representation of this Like'''
+        return f'@{self.profile.username} likes post {self.post.pk}'

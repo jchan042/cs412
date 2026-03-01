@@ -14,4 +14,6 @@ urlpatterns = [
     path('profile/<int:pk>/update', UpdateProfileView.as_view(), name="update"),
     path('post/<int:pk>/delete', DeletePostView.as_view(), name="delete_post"),
     path('post/<int:pk>/update', UpdatePostView.as_view(), name="update_post"),
+    path('profile/<int:pk>/followers', ShowFollowersDetailView.as_view(), name="followers"),
+    path('profile/<int:pk>/following', ShowFollowingDetailView.as_view(), name="following"),
 ]
