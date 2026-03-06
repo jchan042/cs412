@@ -58,11 +58,28 @@ Description: The page to display one single profile
         <div class="profile-bio">{{ profile.bio_text }}</div>
     </div>
 
-    <!-- Update profile and feed buttons -->
+    <!-- Buttons that only show update/feed/create post to the profile's own user -->
     <div class="update-profile">
         <div class="form-buttons">
-            <a href="{% url 'update' profile.pk %}">Update Profile</a>
-            <a href="{% url 'feed' profile.pk %}">View Feed</a>
+            {% if user_profile == profile %}
+                <!-- Owner only actions -->
+                <a href="{% url 'update' %}">Update Profile</a>
+                <a href="{% url 'feed' %}">View Feed</a>
+                <a href="{% url 'create_post' %}">Create Post</a>
+            {% elif request.user.is_authenticated and user_profile %}
+                <!-- Authenticated non-owner: show follow/unfollow -->
+                {% if is_following %}
+                    <form action="{% url 'delete_follow' profile.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'follow' profile.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Follow</button>
+                    </form>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 

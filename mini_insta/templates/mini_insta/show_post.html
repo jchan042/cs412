@@ -24,10 +24,14 @@ Description: The page to display the contents of a post
             {% endfor %}
         </div>
         <!-- Links at the bottom -->
+        <!-- Links at the bottom -->
         <div class="post-left-links">
             <a class="back-link" href="{% url 'profile' post.profile.pk %}">Back to @{{ post.profile.username }}</a>
-            <a class="update-link" href="{% url 'update_post' post.pk %}">Update Post</a>
-            <a class="delete-link" href="{% url 'delete_post' post.pk %}">Delete Post</a>
+            <!-- Only show update/delete to the post's owner -->
+            {% if profile == post.profile %}
+                <a class="update-link" href="{% url 'update_post' post.pk %}">Update Post</a>
+                <a class="delete-link" href="{% url 'delete_post' post.pk %}">Delete Post</a>
+            {% endif %}
         </div>
     </div>
 

@@ -1,7 +1,7 @@
 <!-- 
 File: base.html
 Author: Jocelyn Chan (jchan042@bu.edu) 2/12/2026
-Description: A base template that other pages can build off upon
+Description: The page for others to extend and build off upon
  -->
 
 {% load static %}
@@ -21,30 +21,57 @@ Description: A base template that other pages can build off upon
         {% block content %}
         {% endblock %}
 
-        <!--Footer-->
+        <!--Authentication status bar-->
+        <div class="auth-status">
+            {% if request.user.is_authenticated %}
+                <span>Logged in as: <strong>{{ request.user.username }}</strong></span>
+                <!--Logout via POST-->
+                <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <span>Not logged in</span>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+
         <footer>
             <nav>
                 <ul>
-                    <!-- Home: links to feed if profile exists, else all profiles -->
-                    {% if profile %}
-                        <li><a href="{% url 'feed' profile.pk %}"><img src="https://cdn-icons-png.flaticon.com/512/5974/5974907.png" alt="Home Button"></a></li>
+                    {% if request.user.is_authenticated %}
+                        {% with nav_profile=user_profile|default:profile %}
+
+                            <!-- Home/Feed -->
+                            {% if nav_profile %}
+                                <li><a href="{% url 'feed' %}">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/5974/5974907.png" alt="Home Button">
+                                </a></li>
+                            {% else %}
+                                <li><a href="{% url 'show_all_profiles' %}">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/5974/5974907.png" alt="Home Button">
+                                </a></li>
+                            {% endif %}
+
+                            <!-- Create Post Search and own Profile -->
+                            {% if nav_profile %}
+                                <li><a href="{% url 'create_post' %}">
+                                    <img src="https://www.pngmart.com/files/21/Add-Button-PNG.png" alt="Add a post button">
+                                </a></li>
+                                <li><a href="{% url 'search' %}">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search Button">
+                                </a></li>
+                                <li><a href="{% url 'own_profile' %}">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Profile Button">
+                                </a></li>
+                            {% endif %}
+
+                        {% endwith %}
                     {% else %}
-                        <li><a href="{% url 'show_all_profiles' %}"><img src="https://cdn-icons-png.flaticon.com/512/5974/5974907.png" alt="Home Button"></a></li>
-                    {% endif %}
-
-                    <!-- Create post button -->
-                    {% if profile %}
-                        <li><a href="{% url 'create_post' profile.pk %}"><img src="https://www.pngmart.com/files/21/Add-Button-PNG.png" alt="Add a post button"></a></li>
-                    {% endif %}
-
-                    <!-- Search link -->
-                    {% if profile %}
-                        <li><a href="{% url 'search' profile.pk %}"><img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search Button"></a></li>
-                    {% endif %}
-
-                    <!-- Profile link -->
-                    {% if profile %}
-                        <li><a href="{% url 'profile' profile.pk %}"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Profile Button"></a></li>
+                        <!-- Unauthenticated users see login and create account links -->
+                        <li><a class="nav-link" href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+                        <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li><a class="nav-link" href="{% url 'create_profile' %}">Create Account</a></li>
                     {% endif %}
                 </ul>
             </nav>

@@ -1,0 +1,32 @@
+<!-- 
+File: login.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/4/2026
+Description: Login page for Mini Instagram
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Login</h2>
+
+<div class="form-container">
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- built-in login form fields -->
+        {{ form.as_p }}
+
+        <!-- redirect to all profiles after login -->
+        <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+
+        <div class="form-buttons">
+            <input type="submit" value="Login">
+        </div>
+
+    </form>
+
+    <p>Don't have an account? <a href="{% url 'create_profile' %}">Create one here</a></p>
+</div>
+
+{% endblock %}

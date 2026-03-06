@@ -11,11 +11,11 @@ Description: Search page for profiles and posts
 <h2>Search</h2>
 
 <div class="form-container">
-    <form action="{% url 'search' profile.pk %}" method="GET">
+    <form action="{% url 'search' %}" method="GET">
 
         <div class="form-field">
             <label for="query"><strong>Search Profiles & Posts</strong></label>
-            <input type="text" name="query" id="query" placeholder="Search by username, name, or caption..."value="{{ query }}">
+            <input type="text" name="query" id="query" value="{{ query }}">
         </div>
 
         <div class="form-buttons">

@@ -1,32 +1,41 @@
 <!-- 
-File: update_profile_form.html
-Author: Jocelyn Chan (jchan042@bu.edu) 2/26/2026
-Description: Form to update a profile 
- -->
+File: create_profile_form.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/4/2026
+Description: Registration form to create a new User and Profile together
+-->
 
 {% extends 'mini_insta/base.html' %}
 
 {% block content %}
 
-<h2>Update profile for @{{ profile.username }}</h2>
+<h2>Create an Account</h2>
 
 <div class="form-container">
-    <form action="{% url 'update' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'create_profile' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <!-- Update display name -->
+        <!-- User account fields-->
+        <h3>Account Details</h3>
+        {{ user_creation_form.as_p }}
+
+        <!-- Profile fields -->
+        <h3>Profile Details</h3>
+
+        <div class="form-field">
+            <label for="id_username"><strong>Username</strong></label>
+            {{ form.username }}
+        </div>
+
         <div class="form-field">
             <label for="id_display_name"><strong>Display Name</strong></label>
             {{ form.display_name }}
         </div>
 
-        <!-- Update bio -->
         <div class="form-field">
             <label for="id_bio_text"><strong>Bio</strong></label>
             {{ form.bio_text }}
         </div>
 
-        <!-- Update profile image URL -->
         <div class="form-field">
             <label for="id_profile_image_url"><strong>Profile Image URL</strong></label>
             {{ form.profile_image_url }}
@@ -34,8 +43,8 @@ Description: Form to update a profile
 
         <!-- Buttons -->
         <div class="form-buttons">
-            <input type="submit" value="Save Changes">
-            <a href="{% url 'profile' profile.pk %}">
+            <input type="submit" value="Create Account">
+            <a href="{% url 'show_all_profiles' %}">
                 <button type="button">Cancel</button>
             </a>
         </div>
@@ -44,9 +53,3 @@ Description: Form to update a profile
 </div>
 
 {% endblock %}
-
-<!-- Image URL field -->
-        <!-- <div class="form-field">
-            <label for="image_url">Image URL:</label>
-            <input type="url" name="image_url" id="image_url" placeholder="Paste an image URL here">
-        </div> -->
