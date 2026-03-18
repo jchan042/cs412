@@ -105,7 +105,7 @@ class Photo(models.Model):
     
     # all the attributes of the post model
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image_url = models.URLField(blank=True)
+    image_url = models.URLField(blank=True) 
     timestamp = models.DateTimeField(auto_now=True)
     image_file = models.ImageField(blank=True)
     

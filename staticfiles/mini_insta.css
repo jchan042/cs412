@@ -482,6 +482,41 @@ body {
     width: 300px;
 }
 
+/* Auth status bar and unauthenticated footer links */
+
+.auth-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    background-color: #ffc273;
+    color: black;
+}
+
+.auth-status span {
+    font-size: 15px;
+}
+
+.auth-status a,
+.auth-status button,
+.nav-link {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #8a49a1;
+    color: white;
+    text-decoration: none;
+    border: none;
+}
+
+.auth-status a:hover,
+.auth-status button:hover,
+.nav-link:hover {
+    background-color: #c1558b;
+}
+
 /* Footer */
 
 footer {

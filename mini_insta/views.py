@@ -253,7 +253,7 @@ class SearchView(ProfileLoginRequiredMixin, ListView):
         '''Return profiles matching the search query'''
         query = self.request.GET.get('query', '')
         if query:
-            return (Profile.objects.filter(username__icontains=query) |
+            return (Profile.objects.filter(username__icontains=query) | 
                     Profile.objects.filter(display_name__icontains=query) |
                     Profile.objects.filter(bio_text__icontains=query))
         return Profile.objects.none()

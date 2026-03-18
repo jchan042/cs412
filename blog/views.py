@@ -116,7 +116,7 @@ class CreateCommentView(CreateView):
         '''
  
  
-		# instrument our code to display form fields: 
+		# instrument the code to display form fields: 
         print(f"CreateCommentView.form_valid: form.cleaned_data={form.cleaned_data}")
         
         # retrieve the PK from the URL pattern
