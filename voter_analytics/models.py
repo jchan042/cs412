@@ -70,7 +70,7 @@ def load_data():
                             zip_code=fields[6],
                             dob=fields[7],
                             registration_date=fields[8],
-                            party=fields[9].strip(), # 2-char field 
+                            party=fields[9].strip(), # 2 char field 
                             precinct=fields[10],
                             
                             v20=fields[11] == 'TRUE',

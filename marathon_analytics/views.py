@@ -14,7 +14,7 @@ class ResultsListView(ListView):
     model = Result
     template_name = 'marathon_analytics/results.html'
     context_object_name = 'results'
-    paginate_by: 25 # how many records per page
+    paginate_by = 25 # how many records per page
  
     def get_queryset(self):
         results = super().get_queryset()

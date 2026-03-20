@@ -1,0 +1,88 @@
+<!-- File: voters.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/18/2026
+Description: The page to display lists of voters and filtering
+-->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+    
+    <!--link into search.html-->
+    <div class="row">
+        {% include "voter_analytics/search.html" %}    
+    </div>
+
+    <h1>Showing Voter Results</h1>
+    <!-- navigation links for different pages of results -->
+    <div class="row">
+        {% if is_paginated %}
+
+        <!-- toggle page views for voter list -->
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <!-- first page -->
+                <li>
+                    <span>
+                        <a href="?page=1&party_affiliation={{ party_affiliation }}&min_dob={{ min_dob }}&max_dob={{ max_dob }}&voter_score={{ voter_score }}{% if v20_checked %}&v20=TRUE{% endif %}{% if v21_town_checked %}&v21_town=TRUE{% endif %}{% if v21_primary_checked %}&v21_primary=TRUE{% endif %}{% if v22_general_checked %}&v22_general=TRUE{% endif %}{% if v23_checked %}&v23=TRUE{% endif %}">
+                            Back to first page
+                        </a>
+                    </span>
+                </li>
+                <!-- back -->
+                <li>
+                    <span>
+                        <a href="?page={{ page_obj.previous_page_number }}&party_affiliation={{ party_affiliation }}&min_dob={{ min_dob }}&max_dob={{ max_dob }}&voter_score={{ voter_score }}{% if v20_checked %}&v20=TRUE{% endif %}{% if v21_town_checked %}&v21_town=TRUE{% endif %}{% if v21_primary_checked %}&v21_primary=TRUE{% endif %}{% if v22_general_checked %}&v22_general=TRUE{% endif %}{% if v23_checked %}&v23=TRUE{% endif %}">
+                            Previous
+                        </a>
+                    </span>
+                </li>
+            {% endif %}
+
+                <li class="">
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                </li>
+
+            <!-- next page -->
+            {% if page_obj.has_next %}
+                <li>
+                    <span>
+                        <a href="?page={{ page_obj.next_page_number }}&party_affiliation={{ party_affiliation }}&min_dob={{ min_dob }}&max_dob={{ max_dob }}&voter_score={{ voter_score }}{% if v20_checked %}&v20=TRUE{% endif %}{% if v21_town_checked %}&v21_town=TRUE{% endif %}{% if v21_primary_checked %}&v21_primary=TRUE{% endif %}{% if v22_general_checked %}&v22_general=TRUE{% endif %}{% if v23_checked %}&v23=TRUE{% endif %}">
+                            Next
+                        </a>
+                    </span>
+                </li>
+            <!-- last page -->
+                <li>
+                    <span>
+                        <a href="?page={{ page_obj.paginator.num_pages }}&party_affiliation={{ party_affiliation }}&min_dob={{ min_dob }}&max_dob={{ max_dob }}&voter_score={{ voter_score }}{% if v20_checked %}&v20=TRUE{% endif %}{% if v21_town_checked %}&v21_town=TRUE{% endif %}{% if v21_primary_checked %}&v21_primary=TRUE{% endif %}{% if v22_general_checked %}&v22_general=TRUE{% endif %}{% if v23_checked %}&v23=TRUE{% endif %}">
+                            Jump to last page
+                        </a>
+                    </span>
+                </li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <!-- display voter results -->
+    <div class="row">
+        <ul>
+            {% for voter in voters %}
+                <li>
+                    <a href="{% url 'voter' voter.pk %}">
+                        {{ voter.last_name }}, {{ voter.first_name }}
+                    </a>
+                    - {{ voter.street_number }} {{ voter.street_name }}, Newton, MA {{ voter.zip_code }}
+                    - Date of Birth: {{ voter.dob }}
+                    - Party: {{ voter.party }}
+                    - Score: {{ voter.voter_score }}
+                </li>
+                <!-- if can't find any based on filter-->
+                {% empty %}
+                    <li>No voters matched your search.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

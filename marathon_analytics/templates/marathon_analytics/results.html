@@ -19,7 +19,6 @@
             {% if page_obj.has_previous %}
                 <li>
                     <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
-                
                 </li>
             {% endif %}
                 <li class="">
@@ -49,21 +48,15 @@
                 <th>Finish Time</th>
             </tr>
     
-            {% for r in results %}
+            <!-- Show a subset of fields on the ListView -->
+            {% for v in voters %}
             <tr>
-                
-                <td>{{r.place_overall}}</td>
-                <td><a href="{% url 'result_detail' r.pk %}"></a>
-                    {{r.first_name}} {{r.last_name}}</a>
-                </td>
-                <td>{{r.ctz}}</td>
-                <td>{{r.city}}, {{r.state}}</td>
-                <td>{{r.gender.0}} {{r.division}}</td>
-                
-                <td>{{r.time_half1|time:"H:i:s"}}</td>
-                <td>{{r.time_half2|time:"H:i:s"}}</td>
-                <td>{{r.time_finish|time:"H:i:s"}}</td>
-             
+                <td>{{ v.first_name }} {{ v.last_name }}</td> <!-- add href? ****************************************** -->
+                <td>Address: {{ v.street_number }} {{ v.street_name }}</td>
+                <td>Date of birth: {{ v.dob }}</td>
+                <td>Party affiliation: {{ v.party }}</td>
+                <td>Precinct: {{ v.precinct }}</td>
+                <td>Voter score: {{ v.voter_score }}</td>
             </tr>
             {% endfor %}
         </table>

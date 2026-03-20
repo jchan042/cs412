@@ -1,0 +1,30 @@
+<!-- File: base.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/18/2026
+Description: The page for other pages to extend and build off upon
+-->
+
+{% load static %}
+
+<html>
+    <head>
+        <title>Voter Analytics</title>
+        <link rel="stylesheet" href="{% static 'voter.css' %}">
+    </head>
+
+    <body>
+        <header>
+            <h1 id="base-h1">Voter Analytics in Newton, MA</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'voters' %}">Home</a></li>
+                    <li><a href="{% url 'voters' %}">Voter List</a></li>
+                    <li><a href="{% url 'graphs' %}">Show Graphs</a></li>
+                </ul>
+            </nav>
+        </header>
+    
+    {% block content %}
+    {% endblock %}  
+
+    </body>
+</html>
