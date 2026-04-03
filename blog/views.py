@@ -8,6 +8,9 @@ import random
 from django.contrib.auth.forms import UserCreationForm # for new user
 from django.contrib.auth.models import User # django user model
 
+from rest_framework import generics
+from .serializers import *
+
 # Create your views here.
 class ShowAllView(ListView):
     '''Define a view class to show all blog Articles'''
@@ -168,3 +171,18 @@ class UserRegistrationView(CreateView):
     def get_success_url(self):
         '''URL redirect to after creating new user'''
         return reverse('login')
+    
+    
+# API VIEWS #
+class ArticleListAPIView(generics.ListCreateAPIView):
+    '''An API view to return a listing of Articles and create an Article'''
+    
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+class ArticleDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    
+    
+    

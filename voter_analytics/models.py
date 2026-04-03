@@ -51,7 +51,8 @@ def load_data():
     '''
     
     # load csv file 
-    filename = 'C:/Users/jocel/django/newton_voters.csv'
+    filename = 'newton_voters.csv'
+    # filename = 'C:/Users/jocel/django/newton_voters.csv'
     f = open(filename, 'r') # open file for reading 
     f.readline()
     

@@ -1,0 +1,21 @@
+<!-- 
+File: random.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/31/2026
+Description: Form to display a random joke and image 
+ -->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+
+    <h1>Funny Dad Jokes</h1>
+
+    <!--Joke-->    
+    <p>{{ joke.text }}</p>
+    <p><em>Submitted by {{ joke.author_name }}</em></p>
+
+    <!--Image-->
+    <img src="{{ picture.image_url }}" alt="image submitted by {{ picture.author_name }}">
+    <p class="submit"><em>Submitted by {{ picture.author_name }}</em></p>
+
+{% endblock %}

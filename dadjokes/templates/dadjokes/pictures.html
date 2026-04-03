@@ -1,0 +1,24 @@
+<!-- 
+File: pictures.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/31/2026
+Description: The page to display the contents of showing a list of all pictures
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+
+
+{% block content %}
+
+    <h2>All Funny Images</h2>
+ 
+    {% for picture in pictures %}
+        <p>
+            <strong><a href="{% url 'picture' picture.pk %}">{{ picture.pk }}</a></strong><br>
+            <em class="submit">Submitted by {{ picture.author_name }}</em>
+        </p>
+        <img src="{{ picture.image_url }}" alt="image #{{ picture.pk }}">
+        <hr>
+    {% endfor %}
+
+{% endblock %}

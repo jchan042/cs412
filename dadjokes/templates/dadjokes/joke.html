@@ -1,0 +1,15 @@
+<!-- 
+File: joke.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/31/2026
+Description: The page to display the contents of showing one joke 
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+
+<h2>Joke #{{ joke.pk }}</h2>
+<p>{{ joke.text }}</p>
+<p class="submit"><em>Submitted by {{ joke.author_name }}</em></p>
+
+{% endblock %}

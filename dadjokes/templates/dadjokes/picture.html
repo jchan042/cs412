@@ -1,0 +1,15 @@
+<!-- 
+File: picture.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/31/2026
+Description: The page to display the contents of showing one picture
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+
+<h2>{{ picture.pk }}</h2>
+<img src="{{ picture.image_url }}" alt="image submitted by {{ picture.author_name }}">
+<p class="submit"><em>Submitted by {{ picture.author_name }}</em></p>
+
+{% endblock %}

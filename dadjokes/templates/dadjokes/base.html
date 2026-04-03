@@ -1,0 +1,30 @@
+<!-- 
+File: base.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/31/2026
+Description: The page for others to extend and build off upon
+-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Dad Jokes</title>
+        <link rel="stylesheet" href="{% static 'dadjokes.css' %}">
+    </head>
+
+    <body>
+
+        <!--Navigation Bar-->
+        <nav>
+            <ul>
+                <li><a href="{% url 'random' %}">Random Joke</a></li>
+                <li><a href="{% url 'jokes' %}">All Jokes</a></li>
+                <li><a href="{% url 'pictures' %}">All Images</a></li>
+            </ul>
+        </nav>
+        
+        <!--Content other pages insert-->
+        {% block content %}
+        {% endblock %}
+
+    </body>
+</html>

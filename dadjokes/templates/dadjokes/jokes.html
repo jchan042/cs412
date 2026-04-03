@@ -1,0 +1,24 @@
+<!-- 
+File: jokes.html
+Author: Jocelyn Chan (jchan042@bu.edu) 3/31/2026
+Description: The page to display the contents of showing a list of all jokes
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+
+
+    <h2>All Dad Jokes</h2>
+ 
+    <!--loop through to display all jokes-->
+    {% for joke in jokes %}
+        <p>
+            <strong><a href="{% url 'joke' joke.pk %}">{{ joke.pk }}</a></strong><br>
+            {{ joke.text }}<br>
+            <em class="submit">Submitted by {{ joke.author_name }}</em>
+        </p>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

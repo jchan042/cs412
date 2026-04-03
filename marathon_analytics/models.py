@@ -63,7 +63,7 @@ def load_data():
  
     filename = '/Users/azs/Desktop/2023_chicago_results.csv' # change this 
     f = open(filename, 'r') # open file for reading
-    f.readline()
+    f.readline() 
  
     # read entire file one line at a time
     for line in f:

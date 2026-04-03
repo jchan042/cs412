@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'mini_insta',
     'marathon_analytics',
     'voter_analytics',
+    'rest_framework', # Django REST framework
+    'dadjokes',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +152,8 @@ if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
 # declarations to reference a media file
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = "/media/"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
