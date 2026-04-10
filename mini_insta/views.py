@@ -455,6 +455,7 @@ class FeedAPIView(generics.ListAPIView):
 class PostDetailAPIView(generics.RetrieveAPIView):
     '''GET method that returns one Post and all of its photos for a given Profile'''
     serializer_class = PostDetailSerializer
+    lookup_url_kwarg = 'post_pk'
 
     def get_queryset(self):
         return Post.objects.filter(profile__pk=self.kwargs['pk'])
