@@ -12,6 +12,12 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 
+# import API 
+from .serializers import *
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 
 # mixin: get logged in user's profile 
 # subclass of loginrequiredmixin
@@ -407,3 +413,49 @@ class UnlikePostView(ProfileLoginRequiredMixin, TemplateView):
         
         # redirect back to the post page
         return redirect(reverse('post', kwargs={'pk': post.pk}))
+    
+    
+# API VIEWS #
+
+# returns one profile
+class ProfileAPIView(generics.RetrieveAPIView):
+    '''GET method that returns one Profile'''
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+ 
+ 
+# returns a list of profiles
+class ProfileListAPIView(generics.ListAPIView):
+    '''GET method that returns a list of Profile objects'''
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+ 
+ 
+# returns all posts for one profile
+class ProfilePostsAPIView(generics.ListAPIView):
+    '''GET method that returns all Posts for a given Profile'''
+    serializer_class = PostSerializer
+ 
+    def get_queryset(self):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        return profile.get_all_posts()
+ 
+ 
+# returns a feed for one profile
+class FeedAPIView(generics.ListAPIView):
+    '''GET method that returns the feed of Posts from profiles that a given Profile follows'''
+    serializer_class = PostSerializer
+ 
+    def get_queryset(self):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        return profile.get_post_feed()
+ 
+ 
+# creating a post
+class MakePostAPIView(generics.CreateAPIView):
+    '''POST method that creates a new Post for a given Profile'''
+    serializer_class = PostSerializer
+ 
+    def perform_create(self, serializer):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        serializer.save(profile=profile)
