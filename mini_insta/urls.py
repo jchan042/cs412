@@ -49,4 +49,8 @@ urlpatterns = [
     path('api/profiles/<int:pk>/posts/', ProfilePostsAPIView.as_view(), name="profile_posts_view"),
     path('api/profiles/<int:pk>/feed/', FeedAPIView.as_view(), name="feed_view"),
     path('api/profiles/<int:pk>/posts/create/', MakePostAPIView.as_view(), name="make_post_view"),
+    
+    # API endpoints for post detail + photos
+    path('api/profiles/<int:pk>/posts/<int:post_pk>/', PostDetailAPIView.as_view(), name="post_detail_view"),
+    path('api/profiles/<int:pk>/posts/<int:post_pk>/photos/', PostPhotosAPIView.as_view(), name="post_photos_view"),
 ]
