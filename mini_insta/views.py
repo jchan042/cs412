@@ -422,40 +422,61 @@ class ProfileAPIView(generics.RetrieveAPIView):
     '''GET method that returns one Profile'''
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
- 
- 
+
+
 # returns a list of profiles
 class ProfileListAPIView(generics.ListAPIView):
     '''GET method that returns a list of Profile objects'''
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
- 
- 
+
+
 # returns all posts for one profile
 class ProfilePostsAPIView(generics.ListAPIView):
     '''GET method that returns all Posts for a given Profile'''
     serializer_class = PostSerializer
- 
+
     def get_queryset(self):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         return profile.get_all_posts()
- 
- 
+
+
 # returns a feed for one profile
 class FeedAPIView(generics.ListAPIView):
     '''GET method that returns the feed of Posts from profiles that a given Profile follows'''
     serializer_class = PostSerializer
- 
+
     def get_queryset(self):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         return profile.get_post_feed()
- 
- 
+
+
+# returns one specific post for one profile, including all photos
+class PostDetailAPIView(generics.RetrieveAPIView):
+    '''GET method that returns one Post and all of its photos for a given Profile'''
+    serializer_class = PostDetailSerializer
+
+    def get_queryset(self):
+        return Post.objects.filter(profile__pk=self.kwargs['pk'])
+
+
+# returns all photos for one specific post
+class PostPhotosAPIView(generics.ListAPIView):
+    '''GET method that returns all Photo objects for a given Post belonging to a given Profile'''
+    serializer_class = PhotoSerializer
+
+    def get_queryset(self):
+        return Photo.objects.filter(
+            post__pk=self.kwargs['post_pk'],
+            post__profile__pk=self.kwargs['pk']
+        ).order_by('timestamp')
+
+
 # creating a post
 class MakePostAPIView(generics.CreateAPIView):
     '''POST method that creates a new Post for a given Profile'''
     serializer_class = PostSerializer
- 
+
     def perform_create(self, serializer):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         serializer.save(profile=profile)
