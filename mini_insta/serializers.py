@@ -39,16 +39,13 @@ class PostSerializer(serializers.ModelSerializer):
     '''A serializer for the Post model.'''
 
     preview_image_url = serializers.SerializerMethodField()
+    username = serializers.CharField(source='profile.username', read_only=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'profile', 'caption', 'timestamp', 'preview_image_url']
+        fields = ['id', 'profile', 'username', 'caption', 'timestamp', 'preview_image_url']
 
-    # for the preview first post photo 
     def get_preview_image_url(self, obj):
-        '''
-        Return the first photo URL for this post, if one exists.
-        '''
         first_photo = obj.get_all_photos().first()
         if not first_photo:
             return None
