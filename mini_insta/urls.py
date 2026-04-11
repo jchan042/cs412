@@ -42,15 +42,19 @@ urlpatterns = [
     # like/unlike
     path('post/<int:pk>/like', LikePostView.as_view(), name="like"),
     path('post/<int:pk>/delete_like', UnlikePostView.as_view(), name="delete_like"),
-    
+        
+    # API auth
+    path('api/login/', LoginAPIView.as_view(), name="api_login"),
+
     # API views
     path('api/profiles/', ProfileListAPIView.as_view(), name="profiles_view"),
     path('api/profiles/<int:pk>/', ProfileAPIView.as_view(), name="profile_view"),
     path('api/profiles/<int:pk>/posts/', ProfilePostsAPIView.as_view(), name="profile_posts_view"),
     path('api/profiles/<int:pk>/feed/', FeedAPIView.as_view(), name="feed_view"),
     path('api/profiles/<int:pk>/posts/create/', MakePostAPIView.as_view(), name="make_post_view"),
-    
+
     # API endpoints for post detail + photos
     path('api/profiles/<int:pk>/posts/<int:post_pk>/', PostDetailAPIView.as_view(), name="post_detail_view"),
     path('api/profiles/<int:pk>/posts/<int:post_pk>/photos/', PostPhotosAPIView.as_view(), name="post_photos_view"),
+    path('api/profiles/<int:pk>/posts/<int:post_pk>/photos/create/', MakePhotoAPIView.as_view(), name="make_photo_view"),
 ]

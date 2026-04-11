@@ -18,6 +18,14 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+# import authentication
+from django.contrib.auth import authenticate
+from django.middleware.csrf import get_token
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework import status
 
 # mixin: get logged in user's profile 
 # subclass of loginrequiredmixin
@@ -415,6 +423,46 @@ class UnlikePostView(ProfileLoginRequiredMixin, TemplateView):
         return redirect(reverse('post', kwargs={'pk': post.pk}))
     
     
+# Authenticate 
+class LoginAPIView(APIView):
+    '''
+    Handle API-based login for the React Native app.
+    '''
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        csrf_token = get_token(request)
+        return Response({'csrf_token': csrf_token})
+
+    def post(self, request):
+        username = request.data.get('username', '').strip()
+        password = request.data.get('password', '')
+
+        user = authenticate(username=username, password=password)
+        if user is None:
+            return Response(
+                {'error': 'Login failed. Check your username and password.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        profile = Profile.objects.filter(user=user).first()
+        if profile is None:
+            return Response(
+                {'error': 'No profile is associated with this user.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        token, created = Token.objects.get_or_create(user=user)
+
+        return Response({
+            'token': token.key,
+            'profile': {
+                'id': profile.id,
+                'username': profile.username,
+                'display_name': profile.display_name,
+            }
+        })
+    
 # API VIEWS #
 
 # returns one profile
@@ -422,6 +470,8 @@ class ProfileAPIView(generics.RetrieveAPIView):
     '''GET method that returns one Profile'''
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 # returns a list of profiles
@@ -429,12 +479,16 @@ class ProfileListAPIView(generics.ListAPIView):
     '''GET method that returns a list of Profile objects'''
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 # returns all posts for one profile
 class ProfilePostsAPIView(generics.ListAPIView):
     '''GET method that returns all Posts for a given Profile'''
     serializer_class = PostSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
@@ -445,17 +499,20 @@ class ProfilePostsAPIView(generics.ListAPIView):
 class FeedAPIView(generics.ListAPIView):
     '''GET method that returns the feed of Posts from profiles that a given Profile follows'''
     serializer_class = PostSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         return profile.get_post_feed()
-
 
 # returns one specific post for one profile, including all photos
 class PostDetailAPIView(generics.RetrieveAPIView):
     '''GET method that returns one Post and all of its photos for a given Profile'''
     serializer_class = PostDetailSerializer
     lookup_url_kwarg = 'post_pk'
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Post.objects.filter(profile__pk=self.kwargs['pk'])
@@ -465,6 +522,8 @@ class PostDetailAPIView(generics.RetrieveAPIView):
 class PostPhotosAPIView(generics.ListAPIView):
     '''GET method that returns all Photo objects for a given Post belonging to a given Profile'''
     serializer_class = PhotoSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Photo.objects.filter(
@@ -477,7 +536,22 @@ class PostPhotosAPIView(generics.ListAPIView):
 class MakePostAPIView(generics.CreateAPIView):
     '''POST method that creates a new Post for a given Profile'''
     serializer_class = PostSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         serializer.save(profile=profile)
+        
+# adding a photo with a new post
+class MakePhotoAPIView(generics.CreateAPIView):
+    '''
+    POST method that creates a new Photo for an existing Post.
+    '''
+    serializer_class = PhotoSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        post = Post.objects.get(pk=self.kwargs['post_pk'], profile__pk=self.kwargs['pk'])
+        serializer.save(post=post)

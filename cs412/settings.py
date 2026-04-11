@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'marathon_analytics',
     'voter_analytics',
     'rest_framework', # Django REST framework
+    'rest_framework.authtoken',
     'dadjokes',
 ]
 
