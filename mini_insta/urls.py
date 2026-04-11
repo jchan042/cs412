@@ -44,6 +44,7 @@ urlpatterns = [
     path('post/<int:pk>/delete_like', UnlikePostView.as_view(), name="delete_like"),
         
     # API auth
+    path('api/', APIRootView.as_view(), name="api_root"),
     path('api/login/', LoginAPIView.as_view(), name="api_login"),
 
     # API views

@@ -555,3 +555,16 @@ class MakePhotoAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         post = Post.objects.get(pk=self.kwargs['post_pk'], profile__pk=self.kwargs['pk'])
         serializer.save(post=post)
+        
+class APIRootView(APIView):
+    '''
+    Simple root endpoint for the MiniInsta API.
+    '''
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response({
+            'message': 'MiniInsta API',
+            'login': request.build_absolute_uri('/jchan042/mini_insta/api/login/'),
+            'profiles': request.build_absolute_uri('/jchan042/mini_insta/api/profiles/'),
+        })
