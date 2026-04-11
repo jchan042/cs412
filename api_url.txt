@@ -1,1 +1,1 @@
-https://cs-webapps.bu.edu/jchan042/dadjokes/api/
+https://cs-webapps.bu.edu/jchan042/mini_insta/api/
